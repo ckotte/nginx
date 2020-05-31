@@ -1,4 +1,4 @@
-FROM blacklabelops/alpine:3.8
+FROM alpine:3.11
 
 # Build time arguments
 #Values: latest or version number (e.g. 1.8.1-r0)
@@ -16,12 +16,20 @@ RUN export CONTAINER_USER=nginx && \
     export CONTAINER_GROUP=nginx && \
     # Add user
     addgroup -g $CONTAINER_GID $CONTAINER_GROUP && \
-    adduser -u $CONTAINER_UID -G $CONTAINER_GROUP -h /home/$CONTAINER_USER -s /bin/bash -S $CONTAINER_USER && \
-    apk add --update \
-      ca-certificates \
-      curl \
-      openssl \
-      apache2-utils && \
+    adduser -u $CONTAINER_UID -G $CONTAINER_GROUP -h /home/$CONTAINER_USER -s /bin/bash -S $CONTAINER_USER \
+    # Install additional software
+    && apk add --update --no-cache                  \
+        gzip                                        \
+        wget                                        \
+        curl                                        \
+        tar                                         \
+        bash                                        \
+        su-exec                                     \
+        tini                                        \
+        tzdata                                      \
+        ca-certificates                             \
+        openssl                                     \
+        apache2-utils &&                            \
     if  [ "${NGINX_VERSION}" = "latest" ]; \
       then apk add nginx ; \
       else apk add "nginx=${NGINX_VERSION}" ; \
@@ -37,7 +45,10 @@ RUN export CONTAINER_USER=nginx && \
     chown -R $CONTAINER_UID:$CONTAINER_GID ${NGINX_DIRECTORY} /var/log/nginx && \
     chown -R $CONTAINER_UID:$CONTAINER_GID ${NGINX_DIRECTORY} /var/lib/nginx && \
     chown -R $CONTAINER_UID:$CONTAINER_GID ${NGINX_DIRECTORY} /run/nginx && \
-    rm -rf /var/cache/apk/* && rm -rf /tmp/*
+    # Clean caches and tmps
+    rm -rf /var/cache/apk/*                         &&  \
+    rm -rf /tmp/*                                   &&  \
+    rm -rf /var/log/*
 
 # Image Metadata
 LABEL org.opencontainers.image.title=NGINX \
