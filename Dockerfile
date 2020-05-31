@@ -40,10 +40,12 @@ RUN export CONTAINER_USER=nginx && \
     rm -rf /var/cache/apk/* && rm -rf /tmp/*
 
 # Image Metadata
-LABEL com.blacklabelops.application.nginx.version=$NGINX_VERSION \
-      com.blacklabelops.application.nginx.userid=$CONTAINER_UID \
-      com.blacklabelops.application.nginx.groupid=$CONTAINER_GID \
-      com.blacklabelops.image.builddate.nginx=${BUILD_DATE}
+LABEL org.opencontainers.image.title=NGINX \
+      org.opencontainers.image.version=$NGINX_VERSION \
+      org.opencontainers.image.description="NGINX $NGINX_VERSION running on Alpine Linux"  \
+      org.opencontainers.image.nginx.userid=$CONTAINER_UID \
+      org.opencontainers.image.nginx.groupid=$CONTAINER_GID \
+      org.opencontainers.image.created=${BUILD_DATE}
 
 EXPOSE 80 443
 
