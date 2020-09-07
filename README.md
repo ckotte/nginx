@@ -4,9 +4,9 @@
 
 # Supported Tags And Respective Dockerfiles
 
-| Nginx Version     | Tag          | Dockerfile |
-|-------------------|--------------|------------|
-| latest | latest | [Dockerfile](https://github.com/blacklabelops/nginx/blob/master/Dockerfile) |
+| Nginx Version | Dockerfile |
+|---------------|------------|
+| latest | [Dockerfile](https://github.com/blacklabelops/nginx/blob/master/Dockerfile) |
 
 > Recommended: Use tagged versioned image. Read the release notes. Always jump from one version to the next, rollback when necessary.
 
