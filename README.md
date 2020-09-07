@@ -4,7 +4,7 @@
 
 | Nginx Version | Dockerfile |
 |---------------|------------|
-| latest | [Dockerfile](https://github.com/blacklabelops/nginx/blob/master/Dockerfile) |
+| latest | [Dockerfile](https://github.com/ckotte/nginx/blob/master/Dockerfile) |
 
 > Recommended: Use tagged versioned image. Read the release notes. Always jump from one version to the next, rollback when necessary.
 
@@ -22,7 +22,7 @@
 $ docker run -d \
     -p 80:80 \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Default server installation will be available on port 80.
@@ -38,7 +38,7 @@ $ docker run -d \
     -v your_local_config_file.conf:/etc/nginx/nginx.conf \
     -p 80:80 \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 # Reverse Proxy Setup
@@ -49,7 +49,7 @@ $ docker run -d \
     --name nginx \
     -e "SERVER1REVERSE_PROXY_LOCATION1=/" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Reverse proxy will pass to site http://www.heise.de.
@@ -80,7 +80,7 @@ $ docker run -d \
     -e "SERVER2SERVER_NAME=dummy.example.com" \
     -e "SERVER2REVERSE_PROXY_LOCATION1=/alternate" \
     -e "SERVER2REVERSE_PROXY_PASS1=http://www.alternate.de/" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Now try accessing http://localhost (When using docker tools replace localhost with the respective ip) in order to invoke the second proxy you will have to use a dns server for requests originating from dummy.example.com
@@ -109,7 +109,7 @@ $ docker run -d \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
     -e "SERVER1REVERSE_PROXY_LOCATION2=/alternate" \
     -e "SERVER1REVERSE_PROXY_PASS2=http://www.alternate.de/" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Now try accessing http://localhost and https://localhost/alternate (When using docker tools replace localhost with the respective ip)
@@ -119,7 +119,7 @@ $ docker run -d \
 This container supports HTTPS. Just enter a DName with the environment variable CERTIFICATE_DNAME and the container creates a self-signed certificate. You have to pass Distinguished Name (DN). The certificate is generated with the Distinguished Name. This is a DN-Example:
 
 ~~~~
-/CN=SBleul/OU=Blacklabelops/O=blacklabelops.net/L=Munich/C=DE
+/CN=Example/OU=ExampleUnit/O=example.com/L=Munich/C=DE
 ~~~~
 
   * CN = Your name
@@ -134,10 +134,10 @@ $ docker run -d \
     -p 443:443 \
     -e "SERVER1REVERSE_PROXY_LOCATION1=/" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
-    -e "SERVER1CERTIFICATE_DNAME=/CN=SBleul/OU=Blacklabelops/O=blacklabelops.com/L=Munich/C=DE" \
+    -e "SERVER1CERTIFICATE_DNAME=/CN=Example/OU=ExampleUnit/O=example.com/L=Munich/C=DE" \
     -e "SERVER1HTTPS_ENABLED=true" \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Note: Webserver will use same port for HTTPS!
@@ -158,7 +158,7 @@ $ docker run -d \
     -e "SERVER1CERTIFICATE_FILE=/opt/nginx/keys/server.csr" \
     -e "SERVER1CERTIFICATE_KEY=/opt/nginx/keys/server.key" \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 # Disable HTTP
@@ -173,10 +173,10 @@ $ docker run -d \
     -e "SERVER1REVERSE_PROXY_LOCATION1=/" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
     -e "SERVER1HTTPS_ENABLED=true" \
-    -e "SERVER1CERTIFICATE_DNAME=/CN=SBleul/OU=Blacklabelops/O=blacklabelops.com/L=Munich/C=DE" \
+    -e "SERVER1CERTIFICATE_DNAME=/CN=Example/OU=ExampleUnit/O=example.com/L=Munich/C=DE" \
     -e "SERVER1HTTP_ENABLED=false" \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > The reverse proxy will now only offer HTTPS communication!
@@ -214,7 +214,7 @@ $ docker run -d \
     -e 'SERVER1REVERSE_PROXY_HEADER1FIELD2=X-Forwarded-Server $host' \
     -e 'SERVER1REVERSE_PROXY_HEADER1FIELD3=X-Forwarded-For $proxy_add_x_forwarded_for' \
     -e 'SERVER1REVERSE_PROXY_DIRECTIVE1FIELD1=proxy_read_timeout 300' \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Use `''`, `$$`, or quotes otherwise variables like `$host` will be interpreted!
@@ -246,10 +246,10 @@ $ docker run -d \
     -e "SERVER1SERVER_NAME=localhost" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
     -e "SERVER1HTTPS_ENABLED=true" \
-    -e "SERVER1CERTIFICATE_DNAME=/CN=SBleul/OU=Blacklabelops/O=blacklabelops.com/L=Munich/C=DE" \
+    -e "SERVER1CERTIFICATE_DNAME=/CN=Example/OU=ExampleUnit/O=example.com/L=Munich/C=DE" \
     -e "SERVER1HTTP_ENABLED=false" \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > You can now access http://localhost and https://localhost and http will be redirected to https.
@@ -268,10 +268,10 @@ $ docker run -d \
     -e "SERVER1REVERSE_PROXY_LOCATION1=/" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
     -e "SERVER1HTTPS_ENABLED=true" \
-    -e "SERVER1CERTIFICATE_DNAME=/CN=SBleul/OU=Blacklabelops/O=blacklabelops.com/L=Munich/C=DE" \
+    -e "SERVER1CERTIFICATE_DNAME=/CN=Example/OU=ExampleUnit/O=example.com/L=Munich/C=DE" \
     -e "NGINX_HTTP2_ENABLED=true" \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 
@@ -293,7 +293,7 @@ $ docker run -d \
     -e "SERVER1REVERSE_PROXY_WEBSOCKET1=true" \
     -e "SERVER1REVERSE_PROXY_LOCATION2=/" \
     -e "SERVER1REVERSE_PROXY_PASS2=http://www.yourserver.com/" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Proxy 1 has websocket support enabled and for Proxy 2 websocket support is disabled.
@@ -322,7 +322,7 @@ $ docker run --rm \
     -v letsencrypt_certs:/etc/letsencrypt \
     -e "LETSENCRYPT_EMAIL=dummy@example.com" \
     -e "LETSENCRYPT_DOMAIN1=example.com" \
-    blacklabelops/letsencrypt install
+    ckotte/letsencrypt install
 ~~~~
 
 > This container will handshake with letsencrypt.org and install an account and the certificate when successful. Letsencrypt stores the certificates inside the folder /etc/letsencrypt.
@@ -344,7 +344,7 @@ $ docker run -d \
     -e "SERVER1CERTIFICATE_KEY=/etc/letsencrypt/live/example.com/privkey.pem" \
     -e "SERVER1CERTIFICATE_TRUSTED=/etc/letsencrypt/live/example.com/fullchain.pem" \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > LETSENCRYPT_CERTIFICATES switches on special configuration for their certificates.
@@ -386,7 +386,7 @@ $ docker run -d \
     -e "SERVER1CERTIFICATE_KEY=/etc/letsencrypt/live/example.com/privkey.pem" \
     -e "SERVER1CERTIFICATE_TRUSTED=/etc/letsencrypt/live/example.com/fullchain.pem" \
     --name nginx \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Nginx can now handle acme challenge tokens over the volume.
@@ -401,7 +401,7 @@ $ docker run -d \
     -e "LETSENCRYPT_EMAIL=dummy@example.com" \
     -e "LETSENCRYPT_DOMAIN1=example.com" \
     --name letsencrypt \
-    blacklabelops/letsencrypt
+    ckotte/letsencrypt
 ~~~~
 
 > This container will handshake with letsencrypt.org each month on the 15th and renewal the certificate when successful.
@@ -415,7 +415,7 @@ $ docker run -d \
     -e "JOB_COMMAND1=docker exec nginx nginx -s reload" \
     -e "JOB_TIME1=0 0 2 15 * *" \
     -e "JOB_ON_ERROR1=Continue" \
-    blacklabelops/jobber:docker
+    ckotte/jobber:docker
 ~~~~
 
 > Reloads Nginx configuration each month on the 15th over Docker without restarting Nginx! In order to achieve high availability!
@@ -435,7 +435,7 @@ docker run -d \
     -e "SERVER1REVERSE_PROXY_BASIC_AUTH_REALM1=Secure Location" \
     -e "SERVER1REVERSE_PROXY_BASIC_AUTH1USER1=admin" \
     -e "SERVER1REVERSE_PROXY_BASIC_AUTH1PASSWORD1=admin" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Access to http://localhost will be now password protected with user `admin` and password `admin`.
@@ -453,7 +453,7 @@ docker run -d \
     -e "SERVER1REVERSE_PROXY_BASIC_AUTH1PASSWORD1=admin1" \
     -e "SERVER1REVERSE_PROXY_BASIC_AUTH1USER2=admin2" \
     -e "SERVER1REVERSE_PROXY_BASIC_AUTH1PASSWORD2=admin2" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Access to http://localhost are both enabled for user `admin1` and user `admin2`.
@@ -470,7 +470,7 @@ $ docker run -d \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
     -e "LOG_LEVEL=warn" \
     -e "DISABLE_ACCESS_LOG=true" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 # Use IPv6
@@ -484,7 +484,7 @@ $ docker run -d \
     -e "NGINX_USE_IPV6"="true"
     -e "SERVER1REVERSE_PROXY_LOCATION1=/" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://www.heise.de/" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 # Use custom HTTP or HTTPS ports
@@ -501,7 +501,7 @@ $ docker run -d \
     -e "NGINX_HTTPS_PORT"="9001" \
     -e "SERVER1REVERSE_PROXY_LOCATION1=/" \
     -e "SERVER1REVERSE_PROXY_PASS1=http://localhost:8080/" \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 > Note: If you use port forwarding on your router, you need to forward port 80 and 443 to port 9000 and 9001.
@@ -529,7 +529,7 @@ $ docker run -d \
     -e "SERVER1REVERSE_PROXY_APPLICATION2=custom" \
     -e "SERVER1REVERSE_PROXY_DIRECTIVE2FIELD1: 'alias /var/lib/nginx/html/static/' \
     -v app_volume:/var/lib/nginx/html/static \
-    blacklabelops/nginx
+    ckotte/nginx
 ~~~~
 
 # Build The Image
@@ -543,7 +543,7 @@ Examples:
 Build image with the latest Jenkins release:
 
 ~~~~
-$ docker build -t blacklabelops/nginx .
+$ docker build -t ckotte/nginx .
 ~~~~
 
 > Note: Dockerfile must be inside the current directory!
@@ -551,7 +551,7 @@ $ docker build -t blacklabelops/nginx .
 Build image with a specific NGINX release:
 
 ~~~~
-$ docker build --build-arg NGINX_VERSION=1.8.1-r0  -t blacklabelops/nginx .
+$ docker build --build-arg NGINX_VERSION=1.8.1-r0  -t ckotte/nginx .
 ~~~~
 
 > Note: Dockerfile must be inside the current directory!
@@ -582,7 +582,7 @@ $ docker-compose build
 Minimal working example:
 
 ~~~~
-FROM blacklabelops/nginx
+FROM ckotte/nginx
 
 RUN echo "Install Your Tools"
 
@@ -593,7 +593,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 Example with custom entrypoint:
 
 ~~~~
-FROM blacklabelops/nginx
+FROM ckotte/nginx
 
 USER root
 RUN echo "Install Your Tools"

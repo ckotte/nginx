@@ -1,5 +1,5 @@
 logioweb:
-  image: 'blacklabelops/nginx'
+  image: 'ckotte/nginx'
   name: nginx_reverse_proxy
   environment:
     - 'SERVER_NAME=_'
