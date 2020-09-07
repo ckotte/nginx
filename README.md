@@ -4,7 +4,7 @@
 
 | Nginx Version | Dockerfile |
 |---------------|------------|
-| latest | [Dockerfile](https://github.com/ckotte/nginx/blob/master/Dockerfile) |
+| 1.18.0-r0 | [Dockerfile](https://github.com/ckotte/nginx/blob/master/Dockerfile) |
 
 > Recommended: Use tagged versioned image. Read the release notes. Always jump from one version to the next, rollback when necessary.
 

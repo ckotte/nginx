@@ -1,8 +1,9 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 # Build time arguments
 #Values: latest or version number (e.g. 1.8.1-r0)
-ARG NGINX_VERSION=latest
+# ARG NGINX_VERSION=latest
+ARG NGINX_VERSION=1.18.0-r0
 #Permissions, set the linux user id and group id
 ARG CONTAINER_UID=1000
 ARG CONTAINER_GID=1000
