@@ -7,8 +7,6 @@
 | Nginx Version     | Tag          | Dockerfile |
 |-------------------|--------------|------------|
 | latest | latest | [Dockerfile](https://github.com/blacklabelops/nginx/blob/master/Dockerfile) |
-| 1.10.3-r0 | 2.2 | [Dockerfile](https://github.com/blacklabelops/nginx/blob/2.2/Dockerfile) |
-| undefined | development | [Dockerfile](https://github.com/blacklabelops/nginx/blob/development/Dockerfile) |
 
 > Recommended: Use tagged versioned image. Read the release notes. Always jump from one version to the next, rollback when necessary.
 
